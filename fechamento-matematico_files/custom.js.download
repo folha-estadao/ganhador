@@ -1,0 +1,62 @@
+// Hide Header on on scroll down
+var didScroll;
+var lastScrollTop = 0;
+var delta = 5;
+var navbarHeight = $('.sticker').outerHeight();
+
+$(window).scroll(function(event){
+	didScroll = true;
+});
+
+setInterval(function() {
+	if (didScroll) {
+		hasScrolled();
+		didScroll = false;
+	}
+}, 250);
+
+function hasScrolled() {
+	var st = $(this).scrollTop();
+
+    // Make sure they scroll more than delta
+    if(Math.abs(lastScrollTop - st) <= delta)
+    	return;
+    
+    // If they scrolled down and are past the navbar, add class .nav-up.
+    // This is necessary so you never see what is "behind" the navbar.
+    if (st > lastScrollTop && st > navbarHeight){
+        // Scroll Down
+        $('.sticker').removeClass('nav-down').addClass('nav-up');
+    } else {
+        // Scroll Up
+        if(st + $(window).height() < $(document).height()) {
+        	$('.sticker').removeClass('nav-up').addClass('nav-down');
+        }
+    }
+    
+    lastScrollTop = st;
+}
+
+// Data
+
+var d = new Date();
+var month = new Array();
+month[0] = "Janeiro";
+month[1] = "Fevereiro";
+month[2] = "MarÃ§o";
+month[3] = "Abril";
+month[4] = "Maio";
+month[5] = "Junho";
+month[6] = "Julho";
+month[7] = "Agosto";
+month[8] = "Setembro";
+month[9] = "Outubro";
+month[10] = "Novembro";
+month[11] = "Dezembro";
+var n = month[d.getMonth()];
+dataHora = d.getDate() + ' de ' + n + ' de ' + d.getFullYear();
+dataHoraFinal = d.getDate() + ' de ' + n + ' de ' + d.getFullYear();
+dataHoraLateral = d.getDate() + ' de ' + n + ' de ' + d.getFullYear();
+document.getElementById("datahoje").innerHTML = dataHora;
+document.getElementById("datahojefinal").innerHTML = dataHoraFinal;
+document.getElementById("datahojelateral").innerHTML = dataHoraLateral;
